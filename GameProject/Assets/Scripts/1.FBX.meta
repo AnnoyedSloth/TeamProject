@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 7a33fcf6bf1629241bb47f12591d178d
+timeCreated: 1492665939
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bin
+    100004: Chair
+    100006: Chair001
+    100008: Chair002
+    100010: Closet
+    100012: CUBE
+    100014: Desk_&_PC
+    100016: Floor
+    100018: Gasrange
+    100020: Kitchen_Table
+    100022: Omni001
+    100024: Omni002
+    100026: Omni003
+    100028: Refrigiator
+    100030: Sink
+    100032: Sky001
+    100034: Sofa
+    100036: Sphere001
+    100038: Stair
+    100040: Table
+    100042: Toilet
+    100044: TV
+    100046: TV_Stand
+    100048: Washing_Machine
+    400000: //RootNode
+    400002: Bin
+    400004: Chair
+    400006: Chair001
+    400008: Chair002
+    400010: Closet
+    400012: CUBE
+    400014: Desk_&_PC
+    400016: Floor
+    400018: Gasrange
+    400020: Kitchen_Table
+    400022: Omni001
+    400024: Omni002
+    400026: Omni003
+    400028: Refrigiator
+    400030: Sink
+    400032: Sky001
+    400034: Sofa
+    400036: Sphere001
+    400038: Stair
+    400040: Table
+    400042: Toilet
+    400044: TV
+    400046: TV_Stand
+    400048: Washing_Machine
+    2300000: Bin
+    2300002: Chair
+    2300004: Chair001
+    2300006: Chair002
+    2300008: Closet
+    2300010: CUBE
+    2300012: Desk_&_PC
+    2300014: Floor
+    2300016: Gasrange
+    2300018: Kitchen_Table
+    2300020: Refrigiator
+    2300022: Sink
+    2300024: Sofa
+    2300026: Sphere001
+    2300028: Stair
+    2300030: Table
+    2300032: Toilet
+    2300034: TV
+    2300036: TV_Stand
+    2300038: Washing_Machine
+    3300000: Bin
+    3300002: Chair
+    3300004: Chair001
+    3300006: Chair002
+    3300008: Closet
+    3300010: CUBE
+    3300012: Desk_&_PC
+    3300014: Floor
+    3300016: Gasrange
+    3300018: Kitchen_Table
+    3300020: Refrigiator
+    3300022: Sink
+    3300024: Sofa
+    3300026: Sphere001
+    3300028: Stair
+    3300030: Table
+    3300032: Toilet
+    3300034: TV
+    3300036: TV_Stand
+    3300038: Washing_Machine
+    4300000: CUBE
+    4300002: Floor
+    4300004: Stair
+    4300006: Sofa
+    4300008: TV
+    4300010: TV_Stand
+    4300012: Refrigiator
+    4300014: Desk_&_PC
+    4300016: Chair
+    4300018: Closet
+    4300020: Washing_Machine
+    4300022: Sphere001
+    4300024: Toilet
+    4300026: Table
+    4300028: Chair001
+    4300030: Chair002
+    4300032: Kitchen_Table
+    4300034: Sink
+    4300036: Gasrange
+    4300038: Bin
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
