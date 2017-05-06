@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WifeBehaviour : MonoBehaviour {
+public class Interaction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
