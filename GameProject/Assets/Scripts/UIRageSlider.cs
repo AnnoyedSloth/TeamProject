@@ -7,16 +7,21 @@ public class UIRageSlider : MonoBehaviour {
 
     private Wife WifeRage;
     private Slider RageSlider;
+    private float Rage;
+    private float MaxRage = 10.0f;
+    public Color PeaceMode = Color.green;
+    public Color RageMode = Color.red;
 
 	// Use this for initialization
 	void Start () {
-        WifeRage = gameObject.GetComponent<Wife>();
+        WifeRage = GameObject.Find("Wife").gameObject.GetComponent<Wife>();
         RageSlider = this.gameObject.GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        RageSlider.value = WifeRage.angry;
-		
+        Rage = WifeRage.RTRage();
+        RageSlider.value = Rage;
+        RageSlider.image.color = Color.Lerp(PeaceMode, RageMode, Rage / MaxRage);
 	}
 }

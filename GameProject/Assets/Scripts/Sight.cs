@@ -31,11 +31,8 @@ public class Sight : MonoBehaviour
         {
             if (hit.collider.tag == "Player")
             {
-
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Destroy(Enemy);
-                }
+                Debug.Log("You died");
+                //Destroy(Enemy);
             }
         }
     }
