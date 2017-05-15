@@ -16,10 +16,10 @@ public class Wife : MonoBehaviour
     private Transform playerTr;
     private Transform nodeTr;
     private Transform tempTr;
-    private UnityEngine.AI.NavMeshAgent nvAgent;
-    private float distance = 0;
-    public bool Findflag = false; // 수색모드 on/off
-    public float angry = 0;
+    private UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
+    private float distance = 0; // 거리
+    public bool Findflag; // 수색모드 on/off
+    public float angry = 0; // 
     public Unit_State Current_State = Unit_State.Find_State; // 분노게이지 상승 on/off
 
 
@@ -31,9 +31,7 @@ public class Wife : MonoBehaviour
 
     public int ranNum = 0;
     public int choreNum;
-    public bool choreFlag = false;
-    public float timeSpan;
-    private float choreTime = 30.0f; // 집안일 하는 시간
+    private float choreTime = 10.0f; // 집안일 하는 시간
 
     void Start()
     {
@@ -41,7 +39,7 @@ public class Wife : MonoBehaviour
         wifeTr = this.gameObject.GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
-
+        Findflag = false;
 
         ArrNodeTr[0] = GameObject.Find("MainRoom").GetComponent<Transform>();
         ArrNodeTr[1] = GameObject.Find("Bathroom").GetComponent<Transform>();
@@ -58,7 +56,6 @@ public class Wife : MonoBehaviour
         StartCoroutine(State_Look());
         StartCoroutine(Ran_Generator());
         StartCoroutine(Status());
-
     }
 
     // Update is called once per frame
@@ -74,13 +71,11 @@ public class Wife : MonoBehaviour
 
         //vec.Normalize();
 
-        if (Input.GetKeyDown(KeyCode.C)) choreFlag = true;
 
         if (distance < 20)
         {
             Current_State = Unit_State.Get_State;
             State_Look();
-            //StartCoroutine(Get_Time());
         }
         else
         {
@@ -111,7 +106,7 @@ public class Wife : MonoBehaviour
 
         for (int b=0; b<6; b++)
         {
-            if (NodeDistance[b] <= ClosestDistance)
+            if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
             {
                 ClosestDistance = NodeDistance[b];
                 ClosestNode = ArrNodeTr[b];
@@ -125,15 +120,11 @@ public class Wife : MonoBehaviour
     {
         choreNum = ranNum;
         nvAgent.destination = ArrNodeTr[choreNum].position; // 목표위치는 난수로 생성된 노드로
-
-        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) == 0.0f)
+        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) == 0.0f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
             nvAgent.destination = wifeTr.position;
-            //choreFlag = true;
             StartCoroutine(Chase_Complete());
         }
-
-
     }
 
     //void Looking(Vector3 vec)
@@ -152,46 +143,37 @@ public class Wife : MonoBehaviour
     {
         while (true)
         {
-            if (angry == 6 && Findflag == true)
-            {
-                nvAgent.destination = Closest().position;
-            }
-            else if (angry > 6 && Findflag == true)
-                nvAgent.destination = Closest().position;
+            if (angry > 6 && Findflag == true)
+                nvAgent.destination = tempTr.position; // tempTr로 설정한 이유는 행동할 당시의 위치로 이동하게 만들기 위해서
             else
                 nvAgent.destination = wifeTr.position;
 
-            if (distance < 10 && State_identify())
-            {
-                if (angry < 3)
+            //if (State_identify())
+            //{
+                if (angry < 5) // 분노수치에 따라 속도가 변경
                 {
                     nvAgent.speed = 5;
                 }
-                else if(angry < 4)
-                {
-                    nvAgent.speed = 6;
-                }
-                else if (angry < 6)
+                else if (angry > 5 && angry < 6)
                 {
                     nvAgent.speed = 7;
                 }
-                else if (angry < 8)
+                else if (angry > 6 && angry < 8)
                 {
                     nvAgent.speed = 8;
                 }
-                else if (angry < 10)
+                else if (angry > 8 && angry < 10)
                 {
                     nvAgent.speed = 9;
                 }
-
-            }
+           // }
 
             if(Findflag == false)
             {
                 Chore();
             }
 
-            if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position)<25 && angry<10)
+            if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position)<25 && angry<10) // 키가 눌리고 와이프-플레이어 거리가 25미만, 분노 10미만일 때
             {
                 Findflag = true;
                 angry += 0.1f;
@@ -200,6 +182,10 @@ public class Wife : MonoBehaviour
                 {
                     StartCoroutine(Chase_Complete());
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.Space)) // 스페이스바가 KeyDown됐을 당시의 남편과 가장 가까운 노드로 이동
+            {
+                tempTr = Closest();
             }
 
             if (angry > 0 && Findflag == false)
@@ -220,21 +206,17 @@ public class Wife : MonoBehaviour
         }
     }
 
-
-
     IEnumerator Ran_Generator()
     {
         while (true)
         {
-            //if (choreFlag == true)
-            //{
+            if (Findflag == false)
+            {
                 ranNum = Random.Range(0, 5); // 난수생성
-                //choreFlag = false;
-            //}
-            
-            yield return new WaitForSeconds(10.0f);
-        }
 
+            }
+            yield return new WaitForSeconds(choreTime);
+        }
     }
 
     IEnumerator State_Look()
@@ -248,19 +230,12 @@ public class Wife : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-    //IEnumerator Get_Time()
-    //{
-    //    yield return new WaitForSeconds(3.0f);
-    //    Current_State = Unit_State.Find_State;
-    //}
 
     IEnumerator Chase_Complete()
     {
         yield return new WaitForSeconds(5.0f);
         Findflag = false;
-
     }
-
 
     public bool State_identify()
     {
