@@ -22,6 +22,5 @@ public class UIRageSlider : MonoBehaviour {
 	void Update () {
         Rage = WifeRage.RTRage();
         RageSlider.value = Rage;
-        RageSlider.image.color = Color.Lerp(PeaceMode, RageMode, Rage / MaxRage);
 	}
 }

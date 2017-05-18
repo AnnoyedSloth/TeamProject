@@ -48,9 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AngerSystem.cs" />
      <Compile Include="Assets\Scripts\Husband.cs" />
-     <Compile Include="Assets\Scripts\Interaction.cs" />
      <Compile Include="Assets\Scripts\Sight.cs" />
-     <Compile Include="Assets\Scripts\UIRageSlider.cs" />
+     <Compile Include="Assets\Scripts\UIs\UIGuide.cs" />
+     <Compile Include="Assets\Scripts\UIs\UIInterraction.cs" />
+     <Compile Include="Assets\Scripts\UIs\UIRageSlider.cs" />
+     <Compile Include="Assets\Scripts\UIs\UIRootingSlider.cs" />
      <Compile Include="Assets\Scripts\Wife.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
