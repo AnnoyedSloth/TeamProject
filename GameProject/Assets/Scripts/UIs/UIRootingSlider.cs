@@ -7,13 +7,15 @@ public class UIRootingSlider : MonoBehaviour {
 
     private Slider RootingSlider;
     float RootingGauge = 0.0f;
-    float MaxGauge = 100.0f;
-    public Color StartingGauge = Color.green;
-    public Color EndGauge = Color.red;
+    float MaxGauge = 100.0f; // 게이지 최대수치
+    private float GaugeRate = 1.0f; // 게이지 상승속도. 금액의 영향을 받음
+
+    public bool isCompleted;
 
 	// Use this for initialization
 	void Start () {
-        RootingSlider = this.gameObject.GetComponent<Slider>();
+        RootingSlider = GameObject.Find("RootingSlider").gameObject.GetComponent<Slider>();
+        isCompleted = false;
         StartCoroutine(Rooting());
 	}
 	
@@ -23,18 +25,25 @@ public class UIRootingSlider : MonoBehaviour {
 
 	}
 
+    public bool GetComp()
+    {
+        return isCompleted;
+    }
+
     IEnumerator Rooting()
     {
         while (true)
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                RootingGauge += 1.0f;
+                RootingGauge += GaugeRate;
             }
-            if (Input.GetKeyUp(KeyCode.Space))
+            else
             {
                 RootingGauge = 0.0f;
             }
+            if (RootingGauge >= 100.0f) isCompleted = true;
+            else isCompleted = false;
         yield return new WaitForSeconds(0.01f);
         }
     }

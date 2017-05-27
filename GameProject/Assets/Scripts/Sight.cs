@@ -25,9 +25,9 @@ public class Sight : MonoBehaviour
         AngleCalc();
 
         transform.Rotate(SearchPos.up, Torque * Time.deltaTime * 20);
-        Debug.DrawRay(SearchPos.position, SearchPos.forward * 10, Color.green);
+        Debug.DrawRay(SearchPos.position, SearchPos.forward * 20, Color.green);
 
-        if (Physics.Raycast(SearchPos.position, SearchPos.forward, out hit, 10.0f))
+        if (Physics.Raycast(SearchPos.position, SearchPos.forward, out hit, 20.0f))
         {
             if (hit.collider.tag == "Player")
             {

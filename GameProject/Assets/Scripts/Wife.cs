@@ -23,8 +23,8 @@ public class Wife : MonoBehaviour
     public Unit_State Current_State = Unit_State.Find_State; // 분노게이지 상승 on/off
 
 
-    private float[] NodeDistance = new float[10]; // 노드-와이프간 거리 배열
-    private Transform[] ArrNodeTr = new Transform[10]; // 노드 트랜스폼 배열
+    private float[] NodeDistance = new float[12]; // 노드-와이프간 거리 배열
+    private Transform[] ArrNodeTr = new Transform[12]; // 노드 트랜스폼 배열
     private float ClosestDistance;
     public Transform ClosestNode; // 가장 가까운 노드
     // Use this for initialization
@@ -33,22 +33,40 @@ public class Wife : MonoBehaviour
     public int choreNum;
     private float choreTime = 10.0f; // 집안일 하는 시간
 
+    private RayInteraction PlayerRayFlag2;
+
+    void Awake()
+    {
+        nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+    }
+
+
     void Start()
     {
         //SceneManager.LoadScene(0);
         wifeTr = this.gameObject.GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+
         Findflag = false;
 
+        PlayerRayFlag2 = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
+
+        // 1층 노드
         ArrNodeTr[0] = GameObject.Find("MainRoom").GetComponent<Transform>();
-        ArrNodeTr[1] = GameObject.Find("Bathroom").GetComponent<Transform>();
+        ArrNodeTr[1] = GameObject.Find("1stFloorBathroom").GetComponent<Transform>();
         ArrNodeTr[2] = GameObject.Find("Kitchen").GetComponent<Transform>();
         ArrNodeTr[3] = GameObject.Find("BoilerRoom").GetComponent<Transform>();
         ArrNodeTr[4] = GameObject.Find("InFrontOfTV").GetComponent<Transform>();
         ArrNodeTr[5] = GameObject.Find("MainHall").GetComponent<Transform>();
+        // 2층 노드
+        ArrNodeTr[6] = GameObject.Find("StudyRoom").GetComponent<Transform>();
+        ArrNodeTr[7] = GameObject.Find("2ndFloorBathroom").GetComponent<Transform>();
+        ArrNodeTr[8] = GameObject.Find("2ndFloorHall(1)").GetComponent<Transform>();
+        ArrNodeTr[9] = GameObject.Find("2ndFloorHall(2)").GetComponent<Transform>();
+        ArrNodeTr[10] = GameObject.Find("2ndFloorMainRoom(1)").GetComponent<Transform>();
+        ArrNodeTr[11] = GameObject.Find("2ndFloorMainRoom(2)").GetComponent<Transform>();
 
-        ranNum = Random.Range(0, 5);
+        ranNum = Random.Range(0, 11);
 
         Closest();
 
@@ -63,8 +81,6 @@ public class Wife : MonoBehaviour
     {
 
         nvAgent.destination = Closest().position;
-
-        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene(1);
 
         distance = Vector3.Distance(Closest().position, wifeTr.position);
         //Vector3 vec = playerTr.position - wifeTr.position;
@@ -94,8 +110,8 @@ public class Wife : MonoBehaviour
 
     public Transform Closest()
     {
-        
-        for (int a=0; a<6; a++)
+
+        for (int a = 0; a < 12; a++)
         {
             NodeDistance[a] = Vector3.Distance(ArrNodeTr[a].position, playerTr.position); // 각 노드별 거리 배열에 입력
             //Debug.Log(NodeDistance[a]);
@@ -104,13 +120,13 @@ public class Wife : MonoBehaviour
         ClosestNode = ArrNodeTr[0]; // 가장 가까운 노드 디폴트값으로 0번 노드 설정
         ClosestDistance = NodeDistance[0]; // 가장 가까운 노드와의 거리 디폴트값으로 0번 노드와의 거리로 설정
 
-        for (int b=0; b<6; b++)
+        for (int b = 0; b < 12; b++)
         {
             if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
             {
                 ClosestDistance = NodeDistance[b];
                 ClosestNode = ArrNodeTr[b];
-            }         
+            }
         }
 
         return ClosestNode;
@@ -120,7 +136,7 @@ public class Wife : MonoBehaviour
     {
         choreNum = ranNum;
         nvAgent.destination = ArrNodeTr[choreNum].position; // 목표위치는 난수로 생성된 노드로
-        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) == 0.0f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
+        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
             nvAgent.destination = wifeTr.position;
             StartCoroutine(Chase_Complete());
@@ -143,37 +159,38 @@ public class Wife : MonoBehaviour
     {
         while (true)
         {
-            if (angry > 6 && Findflag == true)
-                nvAgent.destination = tempTr.position; // tempTr로 설정한 이유는 행동할 당시의 위치로 이동하게 만들기 위해서
+            if (angry >= 6 && Findflag == true)
+                nvAgent.destination = tempTr.position; // tempTr로 설정한 이유는 분노가 6에 도달한 시점에 남편의 위치에서 가장 가까운 노드로 이동하게 하기 위해
             else
                 nvAgent.destination = wifeTr.position;
 
             //if (State_identify())
             //{
-                if (angry < 5) // 분노수치에 따라 속도가 변경
-                {
-                    nvAgent.speed = 5;
-                }
-                else if (angry > 5 && angry < 6)
-                {
-                    nvAgent.speed = 7;
-                }
-                else if (angry > 6 && angry < 8)
-                {
-                    nvAgent.speed = 8;
-                }
-                else if (angry > 8 && angry < 10)
-                {
-                    nvAgent.speed = 9;
-                }
-           // }
+            if (angry < 5) // 분노수치에 따라 속도가 변경
+            {
+                nvAgent.speed = 5;
+            }
+            else if (angry > 5 && angry < 6)
+            {
+                nvAgent.speed = 7;
+            }
+            else if (angry > 6 && angry < 8)
+            {
+                nvAgent.speed = 8;
+            }
+            else if (angry > 8 && angry < 10)
+            {
+                nvAgent.speed = 9;
+            }
+            // }
 
-            if(Findflag == false)
+            if (Findflag == false)
             {
                 Chore();
             }
 
-            if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position)<25 && angry<10) // 키가 눌리고 와이프-플레이어 거리가 25미만, 분노 10미만일 때
+            // 키가 눌리고 와이프-플레이어 거리가 35미만, 분노 10미만일 때
+            if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position) < 35 && angry < 10 && PlayerRayFlag2.GetMoneyFlag() == true)
             {
                 Findflag = true;
                 angry += 0.1f;
@@ -189,9 +206,9 @@ public class Wife : MonoBehaviour
             }
 
             if (angry > 0 && Findflag == false)
-                {
-                    angry-= 0.005f;
-                }
+            {
+                angry -= 0.005f;
+            }
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -212,7 +229,7 @@ public class Wife : MonoBehaviour
         {
             if (Findflag == false)
             {
-                ranNum = Random.Range(0, 5); // 난수생성
+                ranNum = Random.Range(0, 11); // 난수생성
 
             }
             yield return new WaitForSeconds(choreTime);
@@ -223,10 +240,10 @@ public class Wife : MonoBehaviour
     {
         while (true)
         {
-            if(Current_State == Unit_State.Find_State)
-            Debug.Log("Find_State Activated");
-            else if(Current_State == Unit_State.Get_State)
-            Debug.Log("Get_State Activated");
+            if (Current_State == Unit_State.Find_State)
+                Debug.Log("Find_State Activated");
+            else if (Current_State == Unit_State.Get_State)
+                Debug.Log("Get_State Activated");
             yield return new WaitForSeconds(0.5f);
         }
     }
