@@ -7,7 +7,6 @@ public class Husband : MonoBehaviour
     public int Speed = 6;
 
     public Transform PlayerTr;
-    private Camera fpsCam;
 
     private float rotLeftRight;
     private float rotUpDown;
@@ -16,42 +15,78 @@ public class Husband : MonoBehaviour
     private float verticalVelocity = 0f;
     public float mouseSensitivity = 2f;
     public float upDownRange = 90;
+    public Animator mAnimator = null; //애니메이터 컨트롤
 
+    Vector3 Bending = new Vector3(0.0f, 0.2f, 1.3f);
+    Vector3 Standing = new Vector3(0.0f, 2.0f, 0.5f);
+
+    private bool hidingMode;
 
     void Start()
     {
         PlayerTr = this.gameObject.GetComponent<Transform>();
-        fpsCam = GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
-
+        Cursor.lockState = CursorLockMode.None;
+        mAnimator = gameObject.GetComponent<Animator>(); //애니메이션할 객체 얻기
+        hidingMode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftControl))
         {
             PlayerTr.transform.Translate(Vector3.zero);
+            mAnimator.SetBool("IsWalk", false);
+            mAnimator.SetBool("IsIdle", true);
         }
         else
         {
             if (Input.GetKey(KeyCode.W) == true)
             {
                 PlayerTr.transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+                mAnimator.SetBool("IsWalk", true);
+                mAnimator.SetBool("IsIdle", false);
             }
-            if (Input.GetKey(KeyCode.S) == true)
+            else if (Input.GetKey(KeyCode.S) == true)
             {
-                PlayerTr.transform.Translate(-Vector3.forward * Speed * Time.deltaTime);
+                PlayerTr.transform.Translate(Vector3.back * Speed * Time.deltaTime);
+                mAnimator.SetBool("IsWalk", true);
+                mAnimator.SetBool("IsIdle", false);
             }
-            if (Input.GetKey(KeyCode.A) == true)
+            else if (Input.GetKey(KeyCode.A) == true)
             {
                 PlayerTr.transform.Translate(Vector3.left * Speed * Time.deltaTime);
+                mAnimator.SetBool("IsWalk", true);
+                mAnimator.SetBool("IsIdle", false);
             }
-            if (Input.GetKey(KeyCode.D) == true)
+            else if (Input.GetKey(KeyCode.D) == true)
             {
                 PlayerTr.transform.Translate(-Vector3.left * Speed * Time.deltaTime);
+                mAnimator.SetBool("IsWalk", true);
+                mAnimator.SetBool("IsIdle", false);
             }
+            else
+            {
+                mAnimator.SetBool("IsWalk", false);
+                mAnimator.SetBool("IsIdle", true);
+            }
+
         }
+
+        if (Input.GetKey(KeyCode.LeftControl) == true)
+        {
+            mAnimator.SetBool("Ishide", true);
+            mAnimator.SetBool("IsWalk", false);
+            mAnimator.SetBool("IsIdle", false);
+            hidingMode = false;
+            Camera.main.transform.localPosition = Vector3.Lerp(Bending, Standing, Time.deltaTime);
+        }
+        else
+        {
+            mAnimator.SetBool("Ishide", false);
+            Camera.main.transform.localPosition = Vector3.Lerp(Standing, Bending,  Time.deltaTime);
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftAlt) == true)
         {
             if (Cursor.lockState == CursorLockMode.Locked)
@@ -64,6 +99,12 @@ public class Husband : MonoBehaviour
 
 
 
+    }
+
+    void SetCameraPosition(float howMuch)
+    {
+        Camera.main.transform.Translate(Vector3.down * howMuch);
+        Camera.main.transform.Translate(Vector3.forward * howMuch);
     }
 
     void FPRotate()

@@ -9,6 +9,8 @@ public class RayInteraction : MonoBehaviour
     private RaycastHit moneyHit;
     private bool MoneyFlag = false;
 
+    Vector3 ray;
+
     public int HitNum;
 
     // Use this for initialization
@@ -20,9 +22,10 @@ public class RayInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(RayPlayerTr.position, RayPlayerTr.forward * 2, Color.yellow);
+        ray = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+        Debug.DrawRay(ray, Camera.main.transform.forward * 4, Color.yellow);
 
-        if (Physics.Raycast(RayPlayerTr.position, RayPlayerTr.forward, out moneyHit, 2.0f))
+        if (Physics.Raycast(ray, Camera.main.transform.forward*4, out moneyHit, 2.0f))
         {
             if (moneyHit.collider.tag == "Money")
             {

@@ -12,8 +12,6 @@ public class UIGeneral : MonoBehaviour
 
     //public Image Guide;
     public GameObject GuidePanel;
-    private Button GuideStart;
-    private Button GuideExit;
 
     public GameObject RSlider;
     public GameObject RImage;
@@ -28,9 +26,6 @@ public class UIGeneral : MonoBehaviour
         PlayerRayFlag = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
 
         GuidePanel.SetActive(true);
-        GuideStart = GameObject.Find("Start").gameObject.GetComponent<Button>();
-        GuideExit = GameObject.Find("Exit").gameObject.GetComponent<Button>();
-
         RSlider.SetActive(false);
         RImage.SetActive(false);
 
@@ -85,12 +80,14 @@ public class UIGeneral : MonoBehaviour
             {
                 ExitPanel.SetActive(true);
                 ExitFlag = true;
+                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
             }
             else
             {
                 ExitPanel.SetActive(false); // EXIT 창이 켜져 있으면 끄고 플래그 false로 설정
                 ExitFlag = false;
+                Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
             }
         }
@@ -100,6 +97,7 @@ public class UIGeneral : MonoBehaviour
     public void Click()
     {
         GuidePanel.SetActive(false); // 가이드패널 deactivate
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
 
@@ -112,6 +110,7 @@ public class UIGeneral : MonoBehaviour
     {
         ExitPanel.SetActive(false); // EXIT 창 deactivate 하고 플래그 false로 설정
         ExitFlag = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
 }

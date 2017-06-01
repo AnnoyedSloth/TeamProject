@@ -13,6 +13,7 @@ public class Sight : MonoBehaviour
     private bool flag = true;
     private RaycastHit hit;
 
+
     void Start()
     {
         ThisTr = this.gameObject.GetComponent<Transform>();

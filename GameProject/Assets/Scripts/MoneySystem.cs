@@ -6,11 +6,10 @@ public class MoneySystem : MonoBehaviour
 {
 
     private RayInteraction RayInfo;
-    private UIRootingSlider RootGauge_MS;
-
+    public UIRootingSlider RootGauge_MS;
+    public ResourceUI resourcel;
     public Money[] RMoney = new Money[22];
     public Money CastedMoney;
-
     public int CastNum;
     public bool UIFlag;
 
@@ -33,10 +32,9 @@ public class MoneySystem : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         RayInfo = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
         RootGauge_MS = GameObject.Find("UI").gameObject.GetComponent<UIRootingSlider>();
-
+        resourcel = GameObject.Find("NumUIPrefab").gameObject.GetComponent<ResourceUI>();
         for (int a = 0; a < 22; a++)
         {
             RMoney[a] = new Money(10000, false);
@@ -52,13 +50,13 @@ public class MoneySystem : MonoBehaviour
             CastNum = RayInfo.GetHitNum();
             if (RootGauge_MS.GetComp() == true)
             {
+                SResource.Instance.Nmoney += RMoney[CastNum].Amount;
+                resourcel.MoneyUpdate();
                 totalMoney += RMoney[CastNum].Amount;
                 RMoney[CastNum].Amount = 0;
                
                 RMoney[CastNum].isRooted = true;
-                Debug.Log(CastNum + "의 돈은 " + RMoney[CastNum].Amount);
             }
-            else Debug.Log(CastNum + "의 돈은 " + RMoney[CastNum].Amount);
         }
     }
 }

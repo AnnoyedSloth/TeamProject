@@ -12,16 +12,21 @@ public class Wife : MonoBehaviour
         Get_State,
     }
 
-    private Transform wifeTr;
+    private float TimeLeft = 5.0f;
+    private float nextTime = 0.0f;
+
+    public Transform wifeTr;
     private Transform playerTr;
     private Transform nodeTr;
     private Transform tempTr;
-    private UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
+    public UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
     private float distance = 0; // 거리
-    public bool Findflag; // 수색모드 on/off
+    public bool Findflag = false; // 수색모드 on/off
     public float angry = 0; // 
     public Unit_State Current_State = Unit_State.Find_State; // 분노게이지 상승 on/off
+    public bool isStaying;
 
+    public AudioClip WalkSound;
 
     private float[] NodeDistance = new float[12]; // 노드-와이프간 거리 배열
     private Transform[] ArrNodeTr = new Transform[12]; // 노드 트랜스폼 배열
@@ -35,11 +40,13 @@ public class Wife : MonoBehaviour
 
     private RayInteraction PlayerRayFlag2;
 
+    public Animator mAnimator = null; //애니메이터 컨트롤
+
     void Awake()
     {
         nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        mAnimator = gameObject.GetComponent<Animator>(); //애니메이션할 객체 얻기
     }
-
 
     void Start()
     {
@@ -47,7 +54,6 @@ public class Wife : MonoBehaviour
         wifeTr = this.gameObject.GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
 
-        Findflag = false;
 
         PlayerRayFlag2 = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
 
@@ -71,9 +77,12 @@ public class Wife : MonoBehaviour
         Closest();
 
         StartCoroutine(Angry_Control());
-        StartCoroutine(State_Look());
         StartCoroutine(Ran_Generator());
-        StartCoroutine(Status());
+        StartCoroutine(AnimatorControl());
+        StartCoroutine(WalkingSound());
+
+        isStaying = false;
+
     }
 
     // Update is called once per frame
@@ -83,28 +92,22 @@ public class Wife : MonoBehaviour
         nvAgent.destination = Closest().position;
 
         distance = Vector3.Distance(Closest().position, wifeTr.position);
-        //Vector3 vec = playerTr.position - wifeTr.position;
-
-        //vec.Normalize();
-
 
         if (distance < 20)
         {
             Current_State = Unit_State.Get_State;
-            State_Look();
         }
         else
         {
             Current_State = Unit_State.Find_State;
-            State_Look();
         }
 
-        if (distance < 1)
+        if (distance < 1.0f)
         {
-            //vec = playerTr.position - wifeTr.position;
             nvAgent.destination = wifeTr.position;
+            Findflag = true;
             StartCoroutine(Chase_Complete());
-            //Looking(vec);
+            Debug.Log("Chase_Complete() called by distance<1.0f");
         }
     }
 
@@ -114,42 +117,84 @@ public class Wife : MonoBehaviour
         for (int a = 0; a < 12; a++)
         {
             NodeDistance[a] = Vector3.Distance(ArrNodeTr[a].position, playerTr.position); // 각 노드별 거리 배열에 입력
-            //Debug.Log(NodeDistance[a]);
         }
 
         ClosestNode = ArrNodeTr[0]; // 가장 가까운 노드 디폴트값으로 0번 노드 설정
         ClosestDistance = NodeDistance[0]; // 가장 가까운 노드와의 거리 디폴트값으로 0번 노드와의 거리로 설정
 
-        for (int b = 0; b < 12; b++)
+        if (playerTr.position.y < 6.0f)
         {
-            if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+            for (int b = 0; b < 6; b++)
             {
-                ClosestDistance = NodeDistance[b];
-                ClosestNode = ArrNodeTr[b];
+                if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+                {
+                    ClosestDistance = NodeDistance[b];
+                    ClosestNode = ArrNodeTr[b];
+                }
+            }
+        }
+        else
+        {
+            for (int c = 6; c < 12; c++)
+            {
+                if (NodeDistance[c] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+                {
+                    ClosestDistance = NodeDistance[c];
+                    ClosestNode = ArrNodeTr[c];
+                }
             }
         }
 
-        return ClosestNode;
+        return ClosestNode; 
+    }
+
+    public IEnumerator AnimatorControl()
+    {
+        while(true)
+        { 
+             if(!isStaying)
+             {
+               if(angry>=6)
+               {
+                   mAnimator.SetBool("IsWalk", false);
+                   mAnimator.SetBool("IsRun", true);
+                   mAnimator.SetBool("IsIdle", false);
+                }
+               else
+               {
+                    mAnimator.SetBool("IsWalk", true);
+                    mAnimator.SetBool("IsRun", false);
+                    mAnimator.SetBool("IsIdle", false);
+                }
+             }
+             else if(isStaying)
+             {
+                   mAnimator.SetBool("IsWalk", false);
+                   mAnimator.SetBool("IsRun", false);
+                   mAnimator.SetBool("IsIdle", true);
+              }
+            yield return null;
+        }
+
     }
 
     void Chore()
     {
         choreNum = ranNum;
         nvAgent.destination = ArrNodeTr[choreNum].position; // 목표위치는 난수로 생성된 노드로
-        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
+        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
-            nvAgent.destination = wifeTr.position;
-            StartCoroutine(Chase_Complete());
+            isStaying = true;
+            Debug.Log("Chore called isStaying=true");
+            if (Findflag == true)
+            {
+                nvAgent.destination = wifeTr.position;
+                //StartCoroutine(Chase_Complete());
+            }
         }
+        else isStaying = false;
     }
-
-    //void Looking(Vector3 vec)
-    //{
-    //    Quaternion q = Quaternion.LookRotation(vec);
-
-    //    nvAgent.transform.rotation = q;
-    //}
-
+    
     public float RTRage()
     {
         return angry;
@@ -160,9 +205,15 @@ public class Wife : MonoBehaviour
         while (true)
         {
             if (angry >= 6 && Findflag == true)
+            {
                 nvAgent.destination = tempTr.position; // tempTr로 설정한 이유는 분노가 6에 도달한 시점에 남편의 위치에서 가장 가까운 노드로 이동하게 하기 위해
+                isStaying = false;
+                Debug.Log("Chore called isStaying=false");
+            }
             else
+            {
                 nvAgent.destination = wifeTr.position;
+            }
 
             //if (State_identify())
             //{
@@ -189,15 +240,17 @@ public class Wife : MonoBehaviour
                 Chore();
             }
 
-            // 키가 눌리고 와이프-플레이어 거리가 35미만, 분노 10미만일 때
-            if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position) < 35 && angry < 10 && PlayerRayFlag2.GetMoneyFlag() == true)
+            if (Vector3.Distance(nvAgent.destination, wifeTr.position) < 0.5f) isStaying = true;
+
+                // 키가 눌리고 와이프-플레이어 거리가 35미만, 분노 10미만일 때
+                if (Input.GetKey(KeyCode.Space) && Vector3.Distance(wifeTr.position, playerTr.position) < 35 && angry < 10 && PlayerRayFlag2.GetMoneyFlag() == true)
             {
                 Findflag = true;
                 angry += 0.1f;
 
                 if (angry < 6)
                 {
-                    StartCoroutine(Chase_Complete());
+                    Findflag = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.Space)) // 스페이스바가 KeyDown됐을 당시의 남편과 가장 가까운 노드로 이동
@@ -210,16 +263,6 @@ public class Wife : MonoBehaviour
                 angry -= 0.005f;
             }
             yield return new WaitForSeconds(0.01f);
-        }
-    }
-
-    IEnumerator Status()
-    {
-        while (true)
-        {
-            Debug.Log("분노게이지:" + angry);
-            Debug.Log("Speed :" + nvAgent.speed);
-            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -236,22 +279,41 @@ public class Wife : MonoBehaviour
         }
     }
 
-    IEnumerator State_Look()
-    {
-        while (true)
-        {
-            if (Current_State == Unit_State.Find_State)
-                Debug.Log("Find_State Activated");
-            else if (Current_State == Unit_State.Get_State)
-                Debug.Log("Get_State Activated");
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
 
     IEnumerator Chase_Complete()
     {
+        Debug.Log("Chase Completed!");
         yield return new WaitForSeconds(5.0f);
         Findflag = false;
+    }
+
+    IEnumerator WalkingSound()
+    {
+        while (true)
+        {
+            if (!isStaying)
+            {
+                if (mAnimator.GetBool("IsWalk"))
+                {
+                    AudioSource.PlayClipAtPoint(WalkSound, transform.position);
+                    Debug.Log("Walking");
+                    yield return new WaitForSeconds(0.5f);
+                }
+                else
+                {
+                    AudioSource.PlayClipAtPoint(WalkSound, transform.position);
+                    Debug.Log("Running");
+                    yield return new WaitForSeconds(0.2f);
+                }
+            }
+            else
+            {
+                Debug.Log("Staying");
+                yield return new WaitForSeconds(1.0f);
+            }
+        }
+
+
     }
 
     public bool State_identify()
