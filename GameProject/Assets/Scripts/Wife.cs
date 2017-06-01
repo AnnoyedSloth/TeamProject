@@ -12,13 +12,16 @@ public class Wife : MonoBehaviour
         Get_State,
     }
 
+    private float TimeLeft = 5.0f;
+    private float nextTime = 0.0f;
+
     private Transform wifeTr;
     private Transform playerTr;
     private Transform nodeTr;
     private Transform tempTr;
     private UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
     private float distance = 0; // 거리
-    public bool Findflag; // 수색모드 on/off
+    public bool Findflag = false; // 수색모드 on/off
     public float angry = 0; // 
     public Unit_State Current_State = Unit_State.Find_State; // 분노게이지 상승 on/off
 
@@ -38,6 +41,7 @@ public class Wife : MonoBehaviour
     void Awake()
     {
         nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+
     }
 
 
@@ -47,7 +51,6 @@ public class Wife : MonoBehaviour
         wifeTr = this.gameObject.GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
 
-        Findflag = false;
 
         PlayerRayFlag2 = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
 
@@ -99,7 +102,7 @@ public class Wife : MonoBehaviour
             State_Look();
         }
 
-        if (distance < 1)
+        if (distance < 2.0f)
         {
             //vec = playerTr.position - wifeTr.position;
             nvAgent.destination = wifeTr.position;
@@ -120,26 +123,42 @@ public class Wife : MonoBehaviour
         ClosestNode = ArrNodeTr[0]; // 가장 가까운 노드 디폴트값으로 0번 노드 설정
         ClosestDistance = NodeDistance[0]; // 가장 가까운 노드와의 거리 디폴트값으로 0번 노드와의 거리로 설정
 
-        for (int b = 0; b < 12; b++)
+        if (playerTr.position.y < 6.0f)
         {
-            if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+            for (int b = 0; b < 6; b++)
             {
-                ClosestDistance = NodeDistance[b];
-                ClosestNode = ArrNodeTr[b];
+                if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+                {
+                    ClosestDistance = NodeDistance[b];
+                    ClosestNode = ArrNodeTr[b];
+                }
+            }
+        }
+        else
+        {
+            for (int c = 6; c < 12; c++)
+            {
+                if (NodeDistance[c] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+                {
+                    ClosestDistance = NodeDistance[c];
+                    ClosestNode = ArrNodeTr[c];
+                }
             }
         }
 
-        return ClosestNode;
+        return ClosestNode; 
     }
 
     void Chore()
     {
         choreNum = ranNum;
         nvAgent.destination = ArrNodeTr[choreNum].position; // 목표위치는 난수로 생성된 노드로
-        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
+        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 2.0f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
+
             nvAgent.destination = wifeTr.position;
             StartCoroutine(Chase_Complete());
+
         }
     }
 
@@ -197,7 +216,7 @@ public class Wife : MonoBehaviour
 
                 if (angry < 6)
                 {
-                    StartCoroutine(Chase_Complete());
+                    Findflag = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.Space)) // 스페이스바가 KeyDown됐을 당시의 남편과 가장 가까운 노드로 이동

@@ -7,7 +7,6 @@ public class Husband : MonoBehaviour
     public int Speed = 6;
 
     public Transform PlayerTr;
-    private Camera fpsCam;
 
     private float rotLeftRight;
     private float rotUpDown;
@@ -21,8 +20,7 @@ public class Husband : MonoBehaviour
     void Start()
     {
         PlayerTr = this.gameObject.GetComponent<Transform>();
-        fpsCam = GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
 
     }
 

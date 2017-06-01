@@ -52,6 +52,7 @@ public class MoneySystem : MonoBehaviour
             CastNum = RayInfo.GetHitNum();
             if (RootGauge_MS.GetComp() == true)
             {
+                SResource.Instance.Nmoney += RMoney[CastNum].Amount;
                 totalMoney += RMoney[CastNum].Amount;
                 RMoney[CastNum].Amount = 0;
                
