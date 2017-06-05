@@ -26,8 +26,12 @@ public class Husband : MonoBehaviour
     {
         PlayerTr = this.gameObject.GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.None;
+<<<<<<< .merge_file_a14288
         mAnimator = gameObject.GetComponent<Animator>(); //애니메이션할 객체 얻기
         hidingMode = false;
+=======
+
+>>>>>>> .merge_file_a17236
     }
 
     // Update is called once per frame

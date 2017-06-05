@@ -15,7 +15,11 @@ public class Wife : MonoBehaviour
     private float TimeLeft = 5.0f;
     private float nextTime = 0.0f;
 
+<<<<<<< .merge_file_a13120
     public Transform wifeTr;
+=======
+    private Transform wifeTr;
+>>>>>>> .merge_file_a06172
     private Transform playerTr;
     private Transform nodeTr;
     private Transform tempTr;
@@ -45,7 +49,11 @@ public class Wife : MonoBehaviour
     void Awake()
     {
         nvAgent = this.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+<<<<<<< .merge_file_a13120
         mAnimator = gameObject.GetComponent<Animator>(); //애니메이션할 객체 얻기
+=======
+
+>>>>>>> .merge_file_a06172
     }
 
     void Start()
@@ -102,7 +110,11 @@ public class Wife : MonoBehaviour
             Current_State = Unit_State.Find_State;
         }
 
+<<<<<<< .merge_file_a13120
         if (distance < 1.0f)
+=======
+        if (distance < 2.0f)
+>>>>>>> .merge_file_a06172
         {
             nvAgent.destination = wifeTr.position;
             Findflag = true;
@@ -123,6 +135,7 @@ public class Wife : MonoBehaviour
         ClosestDistance = NodeDistance[0]; // 가장 가까운 노드와의 거리 디폴트값으로 0번 노드와의 거리로 설정
 
         if (playerTr.position.y < 6.0f)
+<<<<<<< .merge_file_a13120
         {
             for (int b = 0; b < 6; b++)
             {
@@ -137,6 +150,22 @@ public class Wife : MonoBehaviour
         {
             for (int c = 6; c < 12; c++)
             {
+=======
+        {
+            for (int b = 0; b < 6; b++)
+            {
+                if (NodeDistance[b] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
+                {
+                    ClosestDistance = NodeDistance[b];
+                    ClosestNode = ArrNodeTr[b];
+                }
+            }
+        }
+        else
+        {
+            for (int c = 6; c < 12; c++)
+            {
+>>>>>>> .merge_file_a06172
                 if (NodeDistance[c] <= ClosestDistance) // 노드들 거리 비교하여 가장 가까운 노드를 ClosestNode로 저장
                 {
                     ClosestDistance = NodeDistance[c];
@@ -146,6 +175,7 @@ public class Wife : MonoBehaviour
         }
 
         return ClosestNode; 
+<<<<<<< .merge_file_a13120
     }
 
     public IEnumerator AnimatorControl()
@@ -176,12 +206,15 @@ public class Wife : MonoBehaviour
             yield return null;
         }
 
+=======
+>>>>>>> .merge_file_a06172
     }
 
     void Chore()
     {
         choreNum = ranNum;
         nvAgent.destination = ArrNodeTr[choreNum].position; // 목표위치는 난수로 생성된 노드로
+<<<<<<< .merge_file_a13120
         if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
             isStaying = true;
@@ -191,6 +224,14 @@ public class Wife : MonoBehaviour
                 nvAgent.destination = wifeTr.position;
                 //StartCoroutine(Chase_Complete());
             }
+=======
+        if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 2.0f || Findflag == true) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
+        {
+
+            nvAgent.destination = wifeTr.position;
+            StartCoroutine(Chase_Complete());
+
+>>>>>>> .merge_file_a06172
         }
         else isStaying = false;
     }

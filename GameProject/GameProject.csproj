@@ -89,7 +89,10 @@
     <Compile Include="Assets\Scripts\UIs\UIGeneral.cs" />
     <Compile Include="Assets\Scripts\UIs\UIRageSlider.cs" />
     <Compile Include="Assets\Scripts\UIs\UIRootingSlider.cs" />
+<<<<<<< .merge_file_a08364
     <Compile Include="Assets\Scripts\Walk.cs" />
+=======
+>>>>>>> .merge_file_a08268
     <Compile Include="Assets\Scripts\Wife.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

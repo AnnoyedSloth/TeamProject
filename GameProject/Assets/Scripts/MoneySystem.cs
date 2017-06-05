@@ -51,7 +51,10 @@ public class MoneySystem : MonoBehaviour
             if (RootGauge_MS.GetComp() == true)
             {
                 SResource.Instance.Nmoney += RMoney[CastNum].Amount;
+<<<<<<< .merge_file_a06892
                 resourcel.MoneyUpdate();
+=======
+>>>>>>> .merge_file_a15608
                 totalMoney += RMoney[CastNum].Amount;
                 RMoney[CastNum].Amount = 0;
                
