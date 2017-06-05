@@ -25,11 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 917, y: 442}
   m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-<<<<<<< .merge_file_a12228
   controlID: 164
-=======
-  controlID: 171
->>>>>>> .merge_file_a03808
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -53,15 +49,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-<<<<<<< .merge_file_a12228
     y: 552
     width: 819
     height: 250
-=======
-    y: 494
-    width: 819
-    height: 308
->>>>>>> .merge_file_a03808
   m_MaximizeOnPlay: 1
   m_Gizmos: 0
   m_Stats: 0
@@ -70,17 +60,10 @@ MonoBehaviour:
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
-<<<<<<< .merge_file_a12228
     m_HBaseRangeMin: -207.11111
     m_HBaseRangeMax: 207.11111
     m_VBaseRangeMin: -116.5
     m_VBaseRangeMax: 116.5
-=======
-    m_HBaseRangeMin: -258.66666
-    m_HBaseRangeMax: 258.66666
-    m_VBaseRangeMin: -145.5
-    m_VBaseRangeMax: 145.5
->>>>>>> .merge_file_a03808
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -98,15 +81,9 @@ MonoBehaviour:
       x: 0
       y: 17
       width: 819
-<<<<<<< .merge_file_a12228
       height: 233
     m_Scale: {x: 1, y: 1}
     m_Translation: {x: 409.5, y: 116.5}
-=======
-      height: 291
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 409.5, y: 145.5}
->>>>>>> .merge_file_a03808
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -114,24 +91,14 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -409.5
-<<<<<<< .merge_file_a12228
       y: -116.5
       width: 819
       height: 233
-=======
-      y: -145.5
-      width: 819
-      height: 291
->>>>>>> .merge_file_a03808
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
-<<<<<<< .merge_file_a12228
   m_LastWindowPixelSize: {x: 819, y: 250}
-=======
-  m_LastWindowPixelSize: {x: 819, y: 308}
->>>>>>> .merge_file_a03808
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -158,11 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-<<<<<<< .merge_file_a12228
   controlID: 37
-=======
-  controlID: 47
->>>>>>> .merge_file_a03808
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,11 +143,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 821
-<<<<<<< .merge_file_a12228
     height: 460
-=======
-    height: 402
->>>>>>> .merge_file_a03808
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 5}
@@ -218,28 +177,16 @@ MonoBehaviour:
     x: 0
     y: 92
     width: 819
-<<<<<<< .merge_file_a12228
     height: 439
   m_SceneLighting: 1
   lastFramingTime: 2089.772723633046
-=======
-    height: 381
-  m_SceneLighting: 1
-  lastFramingTime: 6504.8276032372905
->>>>>>> .merge_file_a03808
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-<<<<<<< .merge_file_a12228
     m_Target: {x: -2.5206897, y: 4.550535, z: -2.9766283}
     speed: 2
     m_Value: {x: -2.5206897, y: 4.550535, z: -2.9766283}
-=======
-    m_Target: {x: 2.6884737, y: 4.489727, z: -5.467222}
-    speed: 2
-    m_Value: {x: 2.6884737, y: 4.489727, z: -5.467222}
->>>>>>> .merge_file_a03808
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -262,7 +209,6 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-<<<<<<< .merge_file_a12228
     m_Target: {x: -0.48625872, y: 0.007873453, z: -0.004357023, w: -0.87376916}
     speed: 2
     m_Value: {x: -0.48625872, y: 0.007873453, z: -0.0043570236, w: -0.8737692}
@@ -270,15 +216,6 @@ MonoBehaviour:
     m_Target: 45.044415
     speed: 2
     m_Value: 45.044415
-=======
-    m_Target: {x: -0.30387858, y: -0.05599054, z: 0.017877148, w: -0.950896}
-    speed: 2
-    m_Value: {x: -0.3038786, y: -0.055990543, z: 0.01787715, w: -0.9508961}
-  m_Size:
-    m_Target: 43.23905
-    speed: 2
-    m_Value: 43.23905
->>>>>>> .merge_file_a03808
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -353,15 +290,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-<<<<<<< .merge_file_a12228
     y: 460
     width: 821
     height: 271
-=======
-    y: 402
-    width: 821
-    height: 329
->>>>>>> .merge_file_a03808
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
@@ -392,13 +323,8 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 342}
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-<<<<<<< .merge_file_a12228
   controlID: 86
 --- !u!114 &9
-=======
-  controlID: 96
---- !u!114 &8
->>>>>>> .merge_file_a03808
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -451,15 +377,9 @@ MonoBehaviour:
     height: 466
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-<<<<<<< .merge_file_a12228
     m_SelectedIDs: 
     m_LastClickedID: 0
     m_ExpandedIDs: e4fbffff00000000
-=======
-    m_SelectedIDs: 782c0000
-    m_LastClickedID: 11384
-    m_ExpandedIDs: e4fbffff00000000842a0000582b0000f22b0000
->>>>>>> .merge_file_a03808
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -605,15 +525,9 @@ MonoBehaviour:
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-<<<<<<< .merge_file_a12228
     m_SelectedIDs: d2240000
     m_LastClickedID: 9426
     m_ExpandedIDs: 00000000d2240000f42700001228000000ca9a3bffffff7f
-=======
-    m_SelectedIDs: ca240000
-    m_LastClickedID: 9418
-    m_ExpandedIDs: 00000000ca240000822700009a27000000ca9a3bffffff7f
->>>>>>> .merge_file_a03808
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -641,11 +555,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-<<<<<<< .merge_file_a12228
     m_ExpandedIDs: 00000000d2240000f427000012280000
-=======
-    m_ExpandedIDs: 00000000ca240000822700009a270000
->>>>>>> .merge_file_a03808
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -670,13 +580,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-<<<<<<< .merge_file_a12228
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-=======
-    m_SelectedInstanceIDs: 782c0000
-    m_LastClickedInstanceID: 11384
->>>>>>> .merge_file_a03808
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -728,15 +633,9 @@ MonoBehaviour:
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
-  - {fileID: 17}
   m_Selected: 0
-<<<<<<< .merge_file_a12228
   m_LastSelected: 0
 --- !u!114 &16
-=======
-  m_LastSelected: 2
---- !u!114 &15
->>>>>>> .merge_file_a03808
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_PrefabParentObject: {fileID: 0}
@@ -769,63 +668,3 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
-<<<<<<< .merge_file_a12228
-=======
---- !u!114 &16
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12141, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AutoRepaintOnSceneChange: 0
-  m_MinSize: {x: 300, y: 360}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Navigation
-    m_Image: {fileID: 7874161543223113035, guid: 0000000000000000d000000000000000,
-      type: 0}
-    m_Tooltip: 
-  m_DepthBufferBits: 0
-  m_Pos:
-    serializedVersion: 2
-    x: 1261
-    y: 92
-    width: 275
-    height: 710
---- !u!114 &17
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12157, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AutoRepaintOnSceneChange: 0
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Services
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_DepthBufferBits: 0
-  m_Pos:
-    serializedVersion: 2
-    x: 1261
-    y: 92
-    width: 275
-    height: 710
-  m_InitialOpenURL: https://public-cdn.cloud.unity3d.com/editor/production/cloud/hub
-  m_GlobalObjectTypeName: 
-  m_RegisteredViewURLs:
-  - https://public-cdn.cloud.unity3d.com/editor/production/cloud/hub
-  m_RegisteredViewInstances:
-  - {fileID: 0}
->>>>>>> .merge_file_a03808
