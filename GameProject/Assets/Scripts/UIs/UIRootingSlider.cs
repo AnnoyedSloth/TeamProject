@@ -8,7 +8,7 @@ public class UIRootingSlider : MonoBehaviour {
     private Slider RootingSlider;
     float RootingGauge = 0.0f;
     float MaxGauge = 100.0f; // 게이지 최대수치
-    private float GaugeRate = 1.0f; // 게이지 상승속도. 금액의 영향을 받음
+    public float GaugeRate = 1.0f; // 게이지 상승속도. 금액의 영향을 받음
 
     public bool isCompleted;
 
@@ -22,12 +22,16 @@ public class UIRootingSlider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         RootingSlider.value = RootingGauge;
-
 	}
 
     public bool GetComp()
     {
         return isCompleted;
+    }
+
+    public void setGaugeRate(float GotGaugeRate)
+    {
+        GaugeRate = GotGaugeRate;
     }
 
     IEnumerator Rooting()

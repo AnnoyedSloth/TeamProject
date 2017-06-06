@@ -9,6 +9,7 @@ public class UIGeneral : MonoBehaviour
 {
 
     private RayInteraction PlayerRayFlag;
+    private MoneySystem MoneyInfo;
 
     //public Image Guide;
     public GameObject GuidePanel;
@@ -20,10 +21,14 @@ public class UIGeneral : MonoBehaviour
     private bool ExitFlag = false;
     private bool PanelActiveFlag;
 
+    public bool MS_RootFlag = false;
+    public int MS_Money = 0;
+
     // Use this for initialization
     void Start()
     {
         PlayerRayFlag = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
+        MoneyInfo = GameObject.Find("Husband").gameObject.GetComponent<MoneySystem>();
 
         GuidePanel.SetActive(true);
         RSlider.SetActive(false);
@@ -38,7 +43,6 @@ public class UIGeneral : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.F1))
         {
             GuidePanel.SetActive(true);
@@ -48,20 +52,21 @@ public class UIGeneral : MonoBehaviour
             GuidePanel.SetActive(false);
         }
 
-        if (PlayerRayFlag.GetMoneyFlag() == true) // 레이캐스트가 적중했을 때
+        if (PlayerRayFlag.GetMoneyFlag() == true && MS_RootFlag) // 레이캐스트가 적중했을 때
         {
 
             if (PanelActiveFlag) // 패널 액티브플래그
             {
                 RImage.SetActive(true);
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+
+            if (Input.GetKey(KeyCode.Space)) // 스페이스바가 눌렸을 때
             {
                 PanelActiveFlag = false;
                 RSlider.SetActive(true);
                 RImage.SetActive(false);
             }
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else
             {
                 PanelActiveFlag = true;
                 RSlider.SetActive(false);
@@ -112,5 +117,19 @@ public class UIGeneral : MonoBehaviour
         ExitFlag = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
+    }
+
+    public void getObjStatus(int amount, bool isRooted)
+    {
+        Debug.Log("getObjStatus Called");
+        if (isRooted)
+        {
+            MS_RootFlag = false;
+        }
+        else
+        {
+            MS_RootFlag = true;
+            MS_Money = amount;
+        }
     }
 }
