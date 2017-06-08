@@ -41,7 +41,7 @@ public class RayInteraction : MonoBehaviour
     {
         if (moneyHit.collider.name == "Kitchen_Table(1-0)") HitNum = 0;
         else if (moneyHit.collider.name == "Fridge(1-0)") HitNum = 1;
-        else if (moneyHit.collider.name == "Sink(1-0)") HitNum = 2;
+        else if (moneyHit.collider.name == "D_Table(1-0)") HitNum = 2;
         else if (moneyHit.collider.name == "TV_Stand(1-0)") HitNum = 3;
         else if (moneyHit.collider.name == "K-Table(1-0-1)") HitNum = 4;
         else if (moneyHit.collider.name == "K-Table(1-0-2)") HitNum = 5;
