@@ -19,6 +19,10 @@ public class Husband : MonoBehaviour
 
     Vector3 Bending = new Vector3(0.0f, 0.3f, 1.3f);
     Vector3 Standing = new Vector3(0.0f, 2.0f, 0.5f);
+    Vector3 CurBending;
+    Vector3 CurStanding;
+
+    public float LerpVal;
 
     private bool hidingMode;
 
@@ -84,7 +88,7 @@ public class Husband : MonoBehaviour
         else
         {
             mAnimator.SetBool("Ishide", false);
-            Camera.main.transform.localPosition = Vector3.Lerp(Standing, Bending,  Time.deltaTime);
+            Camera.main.transform.localPosition = Vector3.Lerp(Standing, Bending, Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftAlt) == true)
@@ -96,16 +100,13 @@ public class Husband : MonoBehaviour
             else Cursor.lockState = CursorLockMode.Locked;
         }
         if (Cursor.lockState == CursorLockMode.Locked) FPRotate();
-
-
-
     }
 
-    void SetCameraPosition(float howMuch)
-    {
-        Camera.main.transform.Translate(Vector3.down * howMuch);
-        Camera.main.transform.Translate(Vector3.forward * howMuch);
-    }
+    //void SetCameraPosition(float howMuch)
+    //{
+    //    Camera.main.transform.Translate(Vector3.down * howMuch);
+    //    Camera.main.transform.Translate(Vector3.forward * howMuch);
+    //}
 
     void FPRotate()
     {

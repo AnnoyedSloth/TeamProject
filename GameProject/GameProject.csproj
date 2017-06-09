@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\UIs\UIDifficulty.cs" />
     <Compile Include="Assets\Scripts\UIs\UIGeneral.cs" />
     <Compile Include="Assets\Scripts\UIs\UIRageSlider.cs" />
+    <Compile Include="Assets\Scripts\UIs\UIRootingInfo.cs" />
     <Compile Include="Assets\Scripts\UIs\UIRootingSlider.cs" />
     <Compile Include="Assets\Scripts\Walk.cs" />
     <Compile Include="Assets\Scripts\Wife.cs" />

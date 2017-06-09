@@ -7,9 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class UIGeneral : MonoBehaviour
 {
-
     private RayInteraction PlayerRayFlag;
-    private MoneySystem MoneyInfo;
 
     //public Image Guide;
     public GameObject GuidePanel;
@@ -28,7 +26,6 @@ public class UIGeneral : MonoBehaviour
     void Start()
     {
         PlayerRayFlag = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
-        MoneyInfo = GameObject.Find("Husband").gameObject.GetComponent<MoneySystem>();
 
         GuidePanel.SetActive(true);
         RSlider.SetActive(false);
@@ -96,7 +93,6 @@ public class UIGeneral : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
-
     }
 
     public void Click()
@@ -122,7 +118,6 @@ public class UIGeneral : MonoBehaviour
 
     public void getObjStatus(int amount, bool isRooted)
     {
-        Debug.Log("getObjStatus Called");
         if (isRooted)
         {
             MS_RootFlag = false;

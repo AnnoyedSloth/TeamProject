@@ -31,6 +31,10 @@ public class Wife : MonoBehaviour
     public bool isComplete;
 
     public AudioClip WalkSound;
+    public AudioClip ChoreSound_Kitc;
+    public AudioClip ChoreSound_Laun;
+    public AudioClip ChoreSound_Vacc;
+    public bool SoundFlag;
 
     private float[] NodeDistance = new float[12]; // 노드-와이프간 거리 배열
     private Transform[] ArrNodeTr = new Transform[12]; // 노드 트랜스폼 배열
@@ -40,7 +44,7 @@ public class Wife : MonoBehaviour
 
     public int ranNum = 0;
     public int choreNum;
-    private float choreTime = 10.0f; // 집안일 하는 시간
+    private float choreTime = 20.0f; // 집안일 하는 시간
 
     private RayInteraction PlayerRayFlag2;
 
@@ -89,8 +93,9 @@ public class Wife : MonoBehaviour
 
         isStaying = false;
         isComplete = true;
+        SoundFlag = true;
 
-        tempTr = wifeTr;
+        tempTr = ArrNodeTr[0];
 
     }
 
@@ -112,10 +117,9 @@ public class Wife : MonoBehaviour
             Current_State = Unit_State.Find_State;
         }
 
-        if (WNDistance < 0.5f)
+        if (WNDistance < 0.3f)
         {
             nvAgent.destination = wifeTr.position;
-            //Findflag = true;
             isStaying = true;
             if(isComplete)StartCoroutine(Chase_Complete());
             Debug.Log("Chase_Complete() called by distance<1.0f");
@@ -198,11 +202,12 @@ public class Wife : MonoBehaviour
         if (Vector3.Distance(ArrNodeTr[choreNum].position, wifeTr.position) < 0.5f) // 해당 노드로 이동 완료했거나, 이동중 키입력을 받았다면, 멈추고 수색종료
         {
             isStaying = true;
+            if(SoundFlag)StartCoroutine(ChoreSound());
             Debug.Log("Chore called isStaying=true");
             if (Findflag == true)
             {
                 nvAgent.destination = wifeTr.position;
-                if(isComplete) StartCoroutine(Chase_Complete());
+                //if(isComplete) StartCoroutine(Chase_Complete());
             }
         }
         else isStaying = false;
@@ -299,7 +304,7 @@ public class Wife : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         Chore();
         Findflag = false;
-        //yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(3.0f);
         isComplete = true;
     }
 
@@ -312,24 +317,41 @@ public class Wife : MonoBehaviour
                 if (mAnimator.GetBool("IsWalk"))
                 {
                     AudioSource.PlayClipAtPoint(WalkSound, transform.position);
-                    Debug.Log("Walking");
+                    //Debug.Log("Walking");
                     yield return new WaitForSeconds(0.5f);
                 }
                 else
                 {
                     AudioSource.PlayClipAtPoint(WalkSound, transform.position);
-                    Debug.Log("Running");
+                    //Debug.Log("Running");
                     yield return new WaitForSeconds(0.2f);
                 }
             }
             else
             {
-                Debug.Log("Staying");
+                //Debug.Log("Staying");
                 yield return new WaitForSeconds(1.0f);
             }
         }
+    }
 
-
+    IEnumerator ChoreSound()
+    {
+        SoundFlag = false;
+        if (Vector3.Distance(wifeTr.position, ArrNodeTr[2].position) < 0.3f)
+        {
+            AudioSource.PlayClipAtPoint(ChoreSound_Kitc, transform.position);
+        }
+        else if(Vector3.Distance(wifeTr.position, ArrNodeTr[3].position) < 0.3f)
+        {
+            AudioSource.PlayClipAtPoint(ChoreSound_Laun, transform.position);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(ChoreSound_Vacc, transform.position);
+        }
+        yield return new WaitForSeconds(3.0f);
+        SoundFlag = true;
     }
 
     public bool State_identify()

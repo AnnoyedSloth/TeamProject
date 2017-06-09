@@ -34,7 +34,6 @@ public class RayInteraction : MonoBehaviour
             }
         }
         else MoneyFlag = false;
-
     }
 
     void NameFind()
