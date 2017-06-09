@@ -108,7 +108,8 @@ public class UIGeneral : MonoBehaviour
 
     public void ExitYes()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     public void ExitNo()

@@ -17,7 +17,7 @@ public class Husband : MonoBehaviour
     public float upDownRange = 90;
     public Animator mAnimator = null; //애니메이터 컨트롤
 
-    Vector3 Bending = new Vector3(0.0f, 0.2f, 1.3f);
+    Vector3 Bending = new Vector3(0.0f, 0.3f, 1.3f);
     Vector3 Standing = new Vector3(0.0f, 2.0f, 0.5f);
 
     private bool hidingMode;
