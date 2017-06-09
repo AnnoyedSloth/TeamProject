@@ -19,12 +19,16 @@ public class Wife : MonoBehaviour
     private Transform playerTr;
     private Transform nodeTr;
     private Transform tempTr;
+
     public UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
     private float distance = 0; // 거리
+    private float WNDistance = 0;
     public bool Findflag = false; // 수색모드 on/off
     public float angry = 0; // 
     public Unit_State Current_State = Unit_State.Find_State; // 분노게이지 상승 on/off
     public bool isStaying;
+
+    public bool isComplete;
 
     public AudioClip WalkSound;
 
@@ -41,6 +45,8 @@ public class Wife : MonoBehaviour
     private RayInteraction PlayerRayFlag2;
 
     public Animator mAnimator = null; //애니메이터 컨트롤
+
+    public float DTBMF = 0;
 
     void Awake()
     {
@@ -82,6 +88,9 @@ public class Wife : MonoBehaviour
         StartCoroutine(WalkingSound());
 
         isStaying = false;
+        isComplete = true;
+
+        tempTr = wifeTr;
 
     }
 
@@ -92,6 +101,7 @@ public class Wife : MonoBehaviour
         nvAgent.destination = Closest().position;
 
         distance = Vector3.Distance(Closest().position, wifeTr.position);
+        WNDistance = Vector3.Distance(tempTr.position, wifeTr.position);
 
         if (distance < 20)
         {
@@ -102,13 +112,16 @@ public class Wife : MonoBehaviour
             Current_State = Unit_State.Find_State;
         }
 
-        if (distance < 1.0f)
+        if (WNDistance < 0.5f)
         {
             nvAgent.destination = wifeTr.position;
-            Findflag = true;
-            StartCoroutine(Chase_Complete());
+            //Findflag = true;
+            isStaying = true;
+            if(isComplete)StartCoroutine(Chase_Complete());
             Debug.Log("Chase_Complete() called by distance<1.0f");
         }
+
+        DTBMF = Vector3.Distance(nvAgent.destination, playerTr.position);
     }
 
     public Transform Closest()
@@ -189,7 +202,7 @@ public class Wife : MonoBehaviour
             if (Findflag == true)
             {
                 nvAgent.destination = wifeTr.position;
-                //StartCoroutine(Chase_Complete());
+                if(isComplete) StartCoroutine(Chase_Complete());
             }
         }
         else isStaying = false;
@@ -208,7 +221,6 @@ public class Wife : MonoBehaviour
             {
                 nvAgent.destination = tempTr.position; // tempTr로 설정한 이유는 분노가 6에 도달한 시점에 남편의 위치에서 가장 가까운 노드로 이동하게 하기 위해
                 isStaying = false;
-                Debug.Log("Chore called isStaying=false");
             }
             else
             {
@@ -282,9 +294,13 @@ public class Wife : MonoBehaviour
 
     IEnumerator Chase_Complete()
     {
+        isComplete = false;
         Debug.Log("Chase Completed!");
         yield return new WaitForSeconds(5.0f);
+        Chore();
         Findflag = false;
+        //yield return new WaitForSeconds(10.0f);
+        isComplete = true;
     }
 
     IEnumerator WalkingSound()
