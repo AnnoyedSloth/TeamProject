@@ -82,6 +82,10 @@
     <Compile Include="Assets\Scripts\MoneySystem.cs" />
     <Compile Include="Assets\Scripts\RayInteraction.cs" />
     <Compile Include="Assets\Scripts\Sight.cs" />
+    <Compile Include="Assets\Scripts\UIs\CutScene.cs" />
+    <Compile Include="Assets\Scripts\UIs\CutSceneImageManager.cs" />
+    <Compile Include="Assets\Scripts\UIs\MainScene.cs" />
+    <Compile Include="Assets\Scripts\UIs\MovieScene.cs" />
     <Compile Include="Assets\Scripts\UIs\NumberUI.cs" />
     <Compile Include="Assets\Scripts\UIs\ResourceUI.cs" />
     <Compile Include="Assets\Scripts\UIs\SResource.cs" />

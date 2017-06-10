@@ -6,7 +6,7 @@ public class SResource
 {
     public int TIME;
     public int Nmoney;
-
+    public bool IsFali;
 
     public int Pmoney = 200000;
 

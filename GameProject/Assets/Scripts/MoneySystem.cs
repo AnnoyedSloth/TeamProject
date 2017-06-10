@@ -90,7 +90,7 @@ public class MoneySystem : MonoBehaviour
 
     private float setSpeed(float moneyAmount)
     {
-        return 30000 / moneyAmount;
+        return 50000 / moneyAmount;
     }
 
     IEnumerator M_Get()

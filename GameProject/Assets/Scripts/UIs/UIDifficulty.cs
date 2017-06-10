@@ -72,6 +72,6 @@ public class UIDifficulty : MonoBehaviour
 
     public void EasyClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("movie");
     }
 }

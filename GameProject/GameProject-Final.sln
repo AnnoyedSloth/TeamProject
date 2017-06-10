@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameProject-Final", "GameProject-Final.csproj", "{D34AF295-EFBA-5CEE-3260-D62E69C45AD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameProject-Final.Editor", "GameProject-Final.Editor.csproj", "{43A75423-BF7F-3F8E-52C3-F5DA5C7F5E24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D34AF295-EFBA-5CEE-3260-D62E69C45AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34AF295-EFBA-5CEE-3260-D62E69C45AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34AF295-EFBA-5CEE-3260-D62E69C45AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34AF295-EFBA-5CEE-3260-D62E69C45AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A75423-BF7F-3F8E-52C3-F5DA5C7F5E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A75423-BF7F-3F8E-52C3-F5DA5C7F5E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A75423-BF7F-3F8E-52C3-F5DA5C7F5E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A75423-BF7F-3F8E-52C3-F5DA5C7F5E24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

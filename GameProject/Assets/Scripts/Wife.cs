@@ -277,7 +277,7 @@ public class Wife : MonoBehaviour
 
             if (angry > 0 && Findflag == false)
             {
-                angry -= 0.005f;
+                angry -= 0.0075f;
             }
             yield return new WaitForSeconds(0.01f);
         }
