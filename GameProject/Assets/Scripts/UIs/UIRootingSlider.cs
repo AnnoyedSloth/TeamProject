@@ -46,7 +46,7 @@ public class UIRootingSlider : MonoBehaviour {
             {
                 RootingGauge = 0.0f;
             }
-            if (RootingGauge >= 100.0f) isCompleted = true;
+            if (RootingGauge >= MaxGauge) isCompleted = true;
             else isCompleted = false;
         yield return new WaitForSeconds(0.01f);
         }

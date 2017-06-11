@@ -12,12 +12,8 @@ public class Wife : MonoBehaviour
         Get_State,
     }
 
-    private float TimeLeft = 5.0f;
-    private float nextTime = 0.0f;
-
     public Transform wifeTr;
     private Transform playerTr;
-    private Transform nodeTr;
     private Transform tempTr;
 
     public UnityEngine.AI.NavMeshAgent nvAgent; // 네비매쉬
@@ -29,6 +25,8 @@ public class Wife : MonoBehaviour
     public bool isStaying;
 
     public bool isComplete;
+
+    public bool DiedFlag;
 
     public AudioClip WalkSound;
     public AudioClip ChoreSound_Kitc;
@@ -50,7 +48,7 @@ public class Wife : MonoBehaviour
 
     public Animator mAnimator = null; //애니메이터 컨트롤
 
-    public float DTBMF = 0;
+    public float WHDistance;
 
     void Awake()
     {
@@ -63,7 +61,6 @@ public class Wife : MonoBehaviour
         //SceneManager.LoadScene(0);
         wifeTr = this.gameObject.GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-
 
         PlayerRayFlag2 = GameObject.Find("Husband").gameObject.GetComponent<RayInteraction>();
 
@@ -94,15 +91,14 @@ public class Wife : MonoBehaviour
         isStaying = false;
         isComplete = true;
         SoundFlag = true;
+        DiedFlag = false;
 
         tempTr = ArrNodeTr[0];
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         nvAgent.destination = Closest().position;
 
         distance = Vector3.Distance(Closest().position, wifeTr.position);
@@ -122,10 +118,8 @@ public class Wife : MonoBehaviour
             nvAgent.destination = wifeTr.position;
             isStaying = true;
             if(isComplete)StartCoroutine(Chase_Complete());
-            Debug.Log("Chase_Complete() called by distance<1.0f");
         }
-
-        DTBMF = Vector3.Distance(nvAgent.destination, playerTr.position);
+        WHDistance = Vector3.Distance(wifeTr.position, playerTr.position);
     }
 
     public Transform Closest()
@@ -203,7 +197,6 @@ public class Wife : MonoBehaviour
         {
             isStaying = true;
             if(SoundFlag)StartCoroutine(ChoreSound());
-            Debug.Log("Chore called isStaying=true");
             if (Findflag == true)
             {
                 nvAgent.destination = wifeTr.position;
@@ -218,6 +211,11 @@ public class Wife : MonoBehaviour
         return angry;
     }
 
+    public void isDied()
+    {
+        DiedFlag = true;
+    }
+
     IEnumerator Angry_Control()
     {
         while (true)
@@ -230,6 +228,18 @@ public class Wife : MonoBehaviour
             else
             {
                 nvAgent.destination = wifeTr.position;
+            }
+
+            if (DiedFlag && WHDistance > 4.0f)
+            {
+                tempTr.position = playerTr.position;
+            }
+            else if (DiedFlag && WHDistance < 3.0f)
+            {
+                DiedFlag = false;
+                nvAgent.destination = wifeTr.position;
+                isStaying = true;
+                if (isComplete) StartCoroutine(Chase_Complete());
             }
 
             //if (State_identify())
@@ -290,12 +300,10 @@ public class Wife : MonoBehaviour
             if (Findflag == false)
             {
                 ranNum = Random.Range(0, 11); // 난수생성
-
             }
             yield return new WaitForSeconds(choreTime);
         }
     }
-
 
     IEnumerator Chase_Complete()
     {

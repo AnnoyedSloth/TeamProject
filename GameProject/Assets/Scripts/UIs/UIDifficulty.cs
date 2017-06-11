@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 public class UIDifficulty : MonoBehaviour
 {
 
-    private bool isOver = false;
-
     public Image EasyImg;
     public Image NormalImg;
     public Image HardImg;

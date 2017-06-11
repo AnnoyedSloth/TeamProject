@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MoneySystem : MonoBehaviour
 {
     private RayInteraction RayInfo;
@@ -78,11 +78,15 @@ public class MoneySystem : MonoBehaviour
             RootInfo.getInfo(RMoney[CastNum].Amount);
             if (RootGauge_MS.GetComp() == true)
             {
-                if(MGetFlag)StartCoroutine(M_Get());
+                if (MGetFlag) StartCoroutine(M_Get());
                 SResource.Instance.Nmoney += RMoney[CastNum].Amount;
                 resourcel.MoneyUpdate();
-                totalMoney += RMoney[CastNum].Amount;
-                RMoney[CastNum].Amount = 0;               
+                if (SResource.Instance.Nmoney >= 200000)
+                {
+                    SResource.Instance.IsFali = false;
+                    SceneManager.LoadScene("CutScene");
+                }
+                RMoney[CastNum].Amount = 0;
                 RMoney[CastNum].isRooted = true;
             }
         }

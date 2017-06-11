@@ -12,7 +12,6 @@ public class Husband : MonoBehaviour
     private float rotUpDown;
     private float verticalRotation = 0f;
 
-    private float verticalVelocity = 0f;
     public float mouseSensitivity = 2f;
     public float upDownRange = 90;
     public Animator mAnimator = null; //애니메이터 컨트롤
@@ -24,14 +23,11 @@ public class Husband : MonoBehaviour
 
     public float LerpVal;
 
-    private bool hidingMode;
-
     void Start()
     {
         PlayerTr = this.gameObject.GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.None;
         mAnimator = gameObject.GetComponent<Animator>(); //애니메이션할 객체 얻기
-        hidingMode = false;
     }
 
     // Update is called once per frame
@@ -82,7 +78,6 @@ public class Husband : MonoBehaviour
             mAnimator.SetBool("Ishide", true);
             mAnimator.SetBool("IsWalk", false);
             mAnimator.SetBool("IsIdle", false);
-            hidingMode = false;
             Camera.main.transform.localPosition = Vector3.Lerp(Bending, Standing, Time.deltaTime);
         }
         else

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RayInteraction : MonoBehaviour
 {
-
-    private Transform RayPlayerTr;
     private RaycastHit moneyHit;
     private bool MoneyFlag = false;
 
@@ -16,7 +14,6 @@ public class RayInteraction : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        RayPlayerTr = GameObject.FindWithTag("Player").gameObject.GetComponent<Transform>();
     }
 
     // Update is called once per frame

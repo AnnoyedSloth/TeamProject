@@ -9,7 +9,6 @@ public class UIRageSlider : MonoBehaviour
     private Wife WifeRage;
     private Slider RageSlider;
     private float Rage;
-    private float MaxRage = 10.0f;
     public Color PeaceMode = Color.green;
     public Color RageMode = Color.red;
 
